@@ -52,3 +52,10 @@ function showTask(){
     listContainer.innerHTML = localStorage.getItem("data");
 }
 showTask();
+showTask();
+function resetTasks() {
+  if (confirm("Apakah Anda yakin ingin menghapus SEMUA tugas?")) {
+    localStorage.removeItem("data");
+    document.getElementById("list-container").innerHTML = "";
+  }
+}
