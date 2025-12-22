@@ -1,6 +1,7 @@
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
-
+const searchInput = document.getElementById("search-input");
+const noResultMsg = document.getElementById("no-results");
 
 function addTask(event){
     event.preventDefault();
@@ -38,6 +39,30 @@ inputBox.addEventListener("keydown", function (e) {
         addTask(e);
         saveData();
     }
+});
+
+searchInput.addEventListener("input", function () {
+  const filter = searchInput.value.toLowerCase();
+  const li = listContainer.getElementsByTagName("li");
+  let hasVisibleItems = false;
+
+  for (let i = 0; i < li.length; i++) {
+    let textValue = li[i].textContent || li[i].innerText;
+    textValue = textValue.replace("\u00d7", "");
+
+    if (textValue.toLowerCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+      hasVisibleItems = true;
+    } else {
+      li[i].style.display = "none";
+    }
+
+    if (hasVisibleItems) {
+      noResultMsg.style.display = "none"; 
+    } else {
+      noResultMsg.style.display = "block"; 
+    }
+  }
 });
 
 document.querySelector(".add").addEventListener("click", function(e){
